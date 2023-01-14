@@ -1,0 +1,24 @@
+ACTIVATE CONDA ENVIRONMENT
+source /rds/project/rds-xyBFuSj0hm0/MLMI2.M2022/miniconda3/bin/activate
+
+SUBMIT JOB
+sbatch slurm_mlmi2_gpu_baseline
+
+CHECK JOB
+squeue -u jdb206
+
+START JUPYTER (I haven't gotten this to work yet. something wrong w my vs code)
+    CPU:
+    sintr -A MLMI-jdb206-SL2-CPU -p icelake -N1 -n1 -t 1:0:0 --qos=INTR
+    GPU:
+    sintr -A MLMI-jdb206-SL2-GPU -p ampere --gres=gpu:1 -N1 -n1 -t 1:0:0 --qos=INTR
+    
+    *Now reativate the conda ENVIRONMENT
+
+    jupyter notebook --no-browser --ip=* --port=8081
+
+    *on local machine. NODEARR can be found from squeue -u jdb206. LOGINNODE is whatever you ssh into, looks like maybe just login??
+    ssh -L PORTNUM:NODEADDR:PORTNUM -fN CRSid@LOGINNODE.hpc.cam.ac.uk
+
+    * open a browser on your local machine and copy the URL started with http://127.0.0.1 returned by the Jupyter Notebook.
+
