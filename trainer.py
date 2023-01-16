@@ -5,6 +5,8 @@ import torch
 from torch.nn import CTCLoss
 from torch.nn.utils.rnn import pad_sequence
 from torch.nn.functional import log_softmax
+from torch.nn.utils import clip_grad_norm_
+
 from torch.optim import SGD
 from decoder import decode
 from utils import concat_inputs
@@ -21,7 +23,6 @@ def train(model, args):
     def train_one_epoch(epoch):
         running_loss = 0.
         last_loss = 0.
-
         for idx, data in enumerate(train_loader):
             inputs, in_lens, trans, _ = data
             inputs = inputs.to(args.device)
@@ -39,6 +40,9 @@ def train(model, args):
             outputs = log_softmax(model(inputs), dim=-1)
             loss = criterion(outputs, targets, in_lens, out_lens)
             loss.backward()
+
+            #Adding Clipping
+            torch.nn.utils.clip_grad_norm_(model.parameters(), max_norm=10)
 
             optimiser.step()
 
@@ -58,7 +62,7 @@ def train(model, args):
         print('EPOCH {}:'.format(epoch + 1))
         model.train(True)
         avg_train_loss = train_one_epoch(epoch)
-
+        # print('max grad:', max_grad)
         model.train(False)
         running_val_loss = 0.
         for idx, data in enumerate(val_loader):

@@ -1,0 +1,21 @@
+Namespace(seed=123, train_json='train_fbank.json', val_json='dev_fbank.json', test_json='test_fbank.json', batch_size=4, num_layers=1, fbank_dims=23, model_dims=128, concat=1, lr=0.5, vocab='vocab_39.txt', report_interval=50, num_epochs=20, dropout=0.2)
+Total number of model parameters is 166952
+EPOCH 1:
+  batch 50 loss: 4.125605773925781
+  batch 100 loss: 3.302305097579956
+  batch 150 loss: 3.257112717628479
+  batch 200 loss: 3.025898451805115
+  batch 250 loss: 2.8265378189086916
+  batch 300 loss: 2.633969631195068
+  batch 350 loss: 2.525850186347961
+  batch 400 loss: 2.467282156944275
+  batch 450 loss: 2.3942277240753174
+  batch 500 loss: 2.2626137065887453
+  batch 550 loss: 2.223246295452118
+  batch 600 loss: 2.1584853458404543
+  batch 650 loss: 2.1278400087356566
+  batch 700 loss: 2.063213620185852
+  batch 750 loss: 2.0044628953933716
+  batch 800 loss: 1.9671652030944824
+  batch 850 loss: 1.917895016670227
+  batch 900 loss: 1.8896203303337098
