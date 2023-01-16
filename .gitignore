@@ -1,3 +1,5 @@
 checkpoints/
 .ipynb_checkpoints/
 fbanks/
+machine.file.**
+slurm-**
