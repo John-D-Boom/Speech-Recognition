@@ -2,7 +2,7 @@ from dataloader import get_dataloader
 import torch
 from collections import Counter
 from datetime import datetime
-from trainer import train
+from trainer_scheduler import train
 import models
 from decoder import decode
 import numpy as np
