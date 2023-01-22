@@ -15,11 +15,13 @@ from utils import concat_inputs
 from dataloader import get_dataloader
 
 def train(model, args):
+    train_loss_list = []
+    val_loss_list = []
     torch.manual_seed(args.seed)
     train_loader = get_dataloader(args.train_json, args.batch_size, True)
     val_loader = get_dataloader(args.val_json, args.batch_size, False)
     criterion = CTCLoss(zero_infinity=True)
-    optimiser = Adam(model.parameters(), lr=args.lr)
+    optimiser = Adam(model.parameters(), lr=args.lr, betas = (args.beta1, args.beta2))
     
     def train_one_epoch(epoch):
         running_loss = 0.
@@ -91,4 +93,11 @@ def train(model, args):
             best_val_loss = avg_val_loss
             model_path = 'checkpoints/{}/model_{}'.format(timestamp, epoch + 1)
             torch.save(model.state_dict(), model_path)
+
+        train_loss_list.append(avg_train_loss)
+        val_loss_list.append(avg_val_loss.item())
+
+        if epoch == (args.num_epochs - 1):
+            print(train_loss_list)
+            print(val_loss_list)
     return model_path

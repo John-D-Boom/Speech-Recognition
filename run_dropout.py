@@ -2,7 +2,7 @@ from dataloader import get_dataloader
 import torch
 from collections import Counter
 from datetime import datetime
-from trainer_scheduler import train
+from trainer_adam import train
 import models
 from decoder import decode
 import numpy as np
@@ -25,6 +25,10 @@ parser.add_argument('--vocab', type=str, default="vocab_39.txt", help="vocabular
 parser.add_argument('--report_interval', type=int, default=50, help="report interval during training")
 parser.add_argument('--num_epochs', type=int, default=20)
 parser.add_argument('--dropout', type=float, default = 0)
+parser.add_argument('--beta1', type=float, default = 0.9)
+parser.add_argument('--beta2', type=float, default = 0.999)
+
+
 args = parser.parse_args()
 
 

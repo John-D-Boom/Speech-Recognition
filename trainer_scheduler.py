@@ -14,6 +14,7 @@ from utils import concat_inputs
 from dataloader import get_dataloader
 
 def train(model, args):
+    
     torch.manual_seed(args.seed)
     train_loader = get_dataloader(args.train_json, args.batch_size, True)
     val_loader = get_dataloader(args.val_json, args.batch_size, False)
@@ -60,6 +61,7 @@ def train(model, args):
 
     for epoch in range(args.num_epochs):
         print('EPOCH {}:'.format(epoch + 1))
+        print('LEARNING RATE:', args.lr)
         model.train(True)
         avg_train_loss = train_one_epoch(epoch)
         # print('max grad:', max_grad)
@@ -91,4 +93,5 @@ def train(model, args):
             model_path = 'checkpoints/{}/model_{}'.format(timestamp, epoch + 1)
             torch.save(model.state_dict(), model_path)
             args.lr = 0.5 * args.lr #Update learning rate exponentially
+            print("loss updated")
     return model_path
