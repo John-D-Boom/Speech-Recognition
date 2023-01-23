@@ -95,7 +95,7 @@ def train(model, args):
             torch.save(model.state_dict(), model_path)
 
         train_loss_list.append(avg_train_loss)
-        val_loss_list.append(avg_val_loss.item())
+        val_loss_list.append(avg_val_loss)
 
         if epoch == (args.num_epochs - 1):
             print(train_loss_list)
