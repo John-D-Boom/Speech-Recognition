@@ -27,6 +27,7 @@ parser.add_argument('--num_epochs', type=int, default=20)
 parser.add_argument('--dropout', type=float, default = 0)
 parser.add_argument('--beta1', type=float, default = 0.9)
 parser.add_argument('--beta2', type=float, default = 0.999)
+parser.add_argument('--exp', type=float, default = 1.0)
 
 
 args = parser.parse_args()

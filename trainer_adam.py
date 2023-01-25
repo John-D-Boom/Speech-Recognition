@@ -94,6 +94,9 @@ def train(model, args):
             best_val_loss = avg_val_loss
             model_path = 'checkpoints/{}/model_{}'.format(timestamp, epoch + 1)
             torch.save(model.state_dict(), model_path)
+
+            args.lr = args.exp * args.lr #Update learning rate exponentially
+            print("loss updated")
         else:
             epochs_since_improvement += 1
 
