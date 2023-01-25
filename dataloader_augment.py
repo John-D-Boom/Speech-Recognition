@@ -38,7 +38,7 @@ def collate_wrapper(batch):
     duration = [i[2] for i in batch]
     return fbank, lens, phn, duration
 
-def get_dataloader(path, bs, shuffle, specaug=False):
+def get_dataloader_augmented(path, bs, shuffle, specaug=False):
     dataset = TDataset(path, specaug)
     return DataLoader(
         dataset, 
