@@ -60,7 +60,7 @@ def train(model, args):
     timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
     Path('checkpoints/{}'.format(timestamp)).mkdir(parents=True, exist_ok=True)
     best_val_loss = 1e+6
-
+    epochs_since_improvement = 0
     for epoch in range(args.num_epochs):
         print('EPOCH {}:'.format(epoch + 1))
         model.train(True)
@@ -90,14 +90,22 @@ def train(model, args):
             )
 
         if avg_val_loss < best_val_loss:
+            epochs_since_improvement = 0
             best_val_loss = avg_val_loss
             model_path = 'checkpoints/{}/model_{}'.format(timestamp, epoch + 1)
             torch.save(model.state_dict(), model_path)
+        else:
+            epochs_since_improvement += 1
 
         train_loss_list.append(avg_train_loss)
         val_loss_list.append(avg_val_loss.item())
 
-        if epoch == (args.num_epochs - 1):
+        if epochs_since_improvement == 4: #Stop once validation loss hasn't improved in 4 epochs
+            print(train_loss_list)
+            print(val_loss_list)
+            return model_path
+
+        if epoch == (args.num_epochs - 1): #print on final epoch
             print(train_loss_list)
             print(val_loss_list)
     return model_path
