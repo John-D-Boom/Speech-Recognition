@@ -16,14 +16,14 @@ class TDataset(Dataset):
 
     def __getitem__(self, index):
         
-        data = self.data[self.data_idx[index]]
+        data = self.data[self.data_idx[index]] #Grab JSON dict
 
-        randomizer = random.randint(0, high =3)
+        randomizer = random.randint(0, 2)
         
-        data_paths = ["fbank_.pt", "fbank_1_1.pt", "fbank_0_9.pt"]
+        data_keys = ["fbank", "fbank_1_1", "fbank_0_9"]
+        data_path = data[data_keys[randomizer]]
         
-        
-        fbank = torch.load(data_paths[randomizer]) #Grabs a random speed everytime
+        fbank = torch.load(data_path) #Grabs a random speed everytime
         fbank_mean = torch.mean(fbank, dim=0, keepdims=True)
         fbank_std = torch.std(fbank, dim=0, keepdims=True)
         fbank = (fbank - fbank_mean) / fbank_std

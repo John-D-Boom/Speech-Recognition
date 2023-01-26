@@ -38,7 +38,7 @@
 #! ######################################################################################
 #! set configurations in run.py, e.g. options="--train_json=train_fbank.json --lr=0.01":
 # options="--dropout=0.2 --num_layers=1 --lr=0.001" #THESE OPTIONS USED IN DROPOUT EXERPIMENTS
-options="--dropout=0.4 --num_layers=4 --lr=0.002 --model_dims=256 --exp=0.9"
+options="--dropout=0.4 --num_layers=4 --lr=0.0005 --model_dims=256 --exp=0.5 --train_json='train_fbank_speeds.json'"
 
 #! ######################################################################################
 #! ######################################################################################

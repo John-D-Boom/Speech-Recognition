@@ -13,16 +13,16 @@ from decoder import decode
 from utils import concat_inputs
 
 from dataloader import get_dataloader
+from dataloader_augment import get_dataloader_augmented
 
 def train(model, args):
     train_loss_list = []
     val_loss_list = []
     torch.manual_seed(args.seed)
-    train_loader = get_dataloader(args.train_json, args.batch_size, True)
+    train_loader = get_dataloader_augmented(args.train_json, args.batch_size, True)
     val_loader = get_dataloader(args.val_json, args.batch_size, False)
     criterion = CTCLoss(zero_infinity=True)
     optimiser = Adam(model.parameters(), lr=args.lr, betas = (args.beta1, args.beta2))
-    
     def train_one_epoch(epoch):
         running_loss = 0.
         last_loss = 0.
@@ -96,7 +96,7 @@ def train(model, args):
             torch.save(model.state_dict(), model_path)
 
             args.lr = args.exp * args.lr #Update learning rate exponentially
-            print("loss updated")
+            print("loss:", args.lr)
         else:
             epochs_since_improvement += 1
 
